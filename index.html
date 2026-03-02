@@ -20,16 +20,30 @@
     .container {
         display: flex;
         justify-content: center;
-        gap: 40px;
-        margin-top: 30px;
+        gap: 25px;
+        margin-top: 40px;
         flex-wrap: wrap;
     }
 
     .column {
         background: #1e1e1e;
-        padding: 20px;
-        border-radius: 10px;
+        border-radius: 12px;
         width: 220px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Push button to bottom */
+        min-height: 420px;
+        overflow: hidden;
+        border: 2px solid transparent;
+    }
+
+    /* Purple border for main columns */
+    .main-column {
+        border: 2px solid #8e44ad;
+    }
+
+    .column-content {
+        padding: 20px;
     }
 
     h2 {
@@ -39,6 +53,7 @@
     ul {
         list-style: none;
         padding: 0;
+        margin: 0;
     }
 
     li {
@@ -58,126 +73,133 @@
         font-weight: bold;
     }
 
-    button {
-        margin: 30px 10px 10px 10px;
-        padding: 10px 20px;
-        font-size: 16px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
+    .cycle-btn {
         background-color: #2196F3;
+        border: none;
+        padding: 15px;
+        cursor: pointer;
         color: white;
+        font-size: 16px;
+        width: 100%;
+        border-top: 1px solid #333;
+        transition: 0.2s;
     }
 
-    button:hover {
+    .cycle-btn:hover {
         background-color: #1976D2;
     }
 </style>
 </head>
 <body>
 
-<h1>Main Cycles</h1>
+<h1>Cycle Tracker</h1>
 
 <div class="container">
 
+    <!-- Dexter Inner -->
     <div class="column">
-        <h2>Dexter (1)</h2>
-        <ul>
-            <li>Mighty Guard</li>
-            <li>Progress Inner cycle</li>
-            <li>Violent End</li>
-            <li>Progress Inner cycle</li>
-            <li>Progress Inner cycle</li>
-        </ul>
+        <div class="column-content">
+            <h2>Inner Dexter</h2>
+            <ul>
+                <li>Doom</li>
+                <li>Full Break</li>
+                <li>Penta</li>
+                <li>Full Break</li>
+            </ul>
+        </div>
+        <button class="cycle-btn">Next</button>
     </div>
 
-    <div class="column">
-        <h2>Seref</h2>
-        <ul>
-            <li>Angel</li>
-            <li>Arcane Seal</li>
-            <li>Ultima</li>
-            <li>Searing Light</li>
-            <li>Arcane Seal</li>
-            <li>Ultima</li>
-        </ul>
+    <!-- Dexter -->
+    <div class="column main-column">
+        <div class="column-content">
+            <h2>Dexter (1)</h2>
+            <ul>
+                <li>Mighty Guard</li>
+                <li>Progress Inner cycle</li>
+                <li>Violent End</li>
+                <li>Progress Inner cycle</li>
+                <li>Progress Inner cycle</li>
+            </ul>
+        </div>
+        <button class="cycle-btn">Next</button>
     </div>
 
+    <!-- Seref -->
+    <div class="column main-column">
+        <div class="column-content">
+            <h2>Seref</h2>
+            <ul>
+                <li>Angel</li>
+                <li>Arcane Seal</li>
+                <li>Ultima</li>
+                <li>Searing Light</li>
+                <li>Arcane Seal</li>
+                <li>Ultima</li>
+            </ul>
+        </div>
+        <button class="cycle-btn">Next</button>
+    </div>
+
+    <!-- Sinister -->
+    <div class="column main-column">
+        <div class="column-content">
+            <h2>Sinister (2)</h2>
+            <ul>
+                <li>White Wind</li>
+                <li>Progress Inner cycle</li>
+                <li>Progress Inner cycle</li>
+                <li>Tranquil End</li>
+                <li>Progress Inner cycle</li>
+            </ul>
+        </div>
+        <button class="cycle-btn">Next</button>
+    </div>
+
+    <!-- Sinister Inner -->
     <div class="column">
-        <h2>Sinister (2)</h2>
-        <ul>
-            <li>White Wind</li>
-            <li>Progress Inner cycle</li>
-            <li>Progress Inner cycle</li>
-            <li>Tranquil End</li>
-            <li>Progress Inner cycle</li>
-        </ul>
+        <div class="column-content">
+            <h2>Inner Sinister</h2>
+            <ul>
+                <li>Calamity</li>
+                <li>Elemental</li>
+                <li>Concussion</li>
+                <li>Elemental</li>
+            </ul>
+        </div>
+        <button class="cycle-btn">Next</button>
     </div>
 
 </div>
-
-<h1>Inner Cycles</h1>
-
-<div class="container">
-
-    <div class="column">
-        <h2>Dexter Inner Cycle</h2>
-        <ul>
-            <li>Doom</li>
-            <li>Full Break</li>
-            <li>Penta</li>
-            <li>Full Break</li>
-        </ul>
-    </div>
-
-    <div class="column">
-        <h2>Sinister Inner Cycle</h2>
-        <ul>
-            <li>Calamity</li>
-            <li>Elemental</li>
-            <li>Concussion</li>
-            <li>Elemental</li>
-        </ul>
-    </div>
-
-</div>
-
-<button onclick="nextCycle()">Next Cycle</button>
 
 <script>
     const columns = document.querySelectorAll(".column");
-    const indexes = [];
 
-    columns.forEach(() => indexes.push(0));
-
-    function updateHighlights() {
-        columns.forEach((column, colIndex) => {
-            const items = column.querySelectorAll("li");
-            items.forEach((item, i) => {
-                item.classList.toggle("active", i === indexes[colIndex]);
-            });
-        });
-    }
-
-    function nextCycle() {
-        columns.forEach((column, colIndex) => {
-            const items = column.querySelectorAll("li");
-            indexes[colIndex] = (indexes[colIndex] + 1) % items.length;
-        });
-        updateHighlights();
-    }
-
-    columns.forEach((column, colIndex) => {
+    columns.forEach((column) => {
         const items = column.querySelectorAll("li");
+        const button = column.querySelector(".cycle-btn");
+        let index = 0;
+
+        function updateHighlight() {
+            items.forEach((item, i) => {
+                item.classList.toggle("active", i === index);
+            });
+        }
+
+        button.addEventListener("click", () => {
+            index = (index + 1) % items.length;
+            updateHighlight();
+        });
+
         items.forEach((item, i) => {
             item.addEventListener("click", () => {
-                indexes[colIndex] = i;
-                updateHighlights();
+                index = i;
+                updateHighlight();
             });
         });
-    });
 
-    updateHighlights();
+        updateHighlight();
+    });
 </script>
 
 </body>
