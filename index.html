@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cycle Tracker</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #111;
+        color: white;
+        text-align: center;
+    }
+
+    h1 {
+        margin-top: 20px;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+    }
+
+    .column {
+        background: #1e1e1e;
+        padding: 20px;
+        border-radius: 10px;
+        width: 220px;
+    }
+
+    h2 {
+        margin-bottom: 10px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        padding: 8px;
+        margin: 5px 0;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    li:hover {
+        background-color: #333;
+    }
+
+    .active {
+        background-color: #4CAF50;
+        font-weight: bold;
+    }
+
+    button {
+        margin: 30px 10px 10px 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        background-color: #2196F3;
+        color: white;
+    }
+
+    button:hover {
+        background-color: #1976D2;
+    }
+</style>
+</head>
+<body>
+
+<h1>Main Cycles</h1>
+
+<div class="container">
+
+    <div class="column">
+        <h2>Dexter (1)</h2>
+        <ul>
+            <li>Mighty Guard</li>
+            <li>Progress Inner cycle</li>
+            <li>Violent End</li>
+            <li>Progress Inner cycle</li>
+            <li>Progress Inner cycle</li>
+        </ul>
+    </div>
+
+    <div class="column">
+        <h2>Seref</h2>
+        <ul>
+            <li>Angel</li>
+            <li>Arcane Seal</li>
+            <li>Ultima</li>
+            <li>Searing Light</li>
+            <li>Arcane Seal</li>
+            <li>Ultima</li>
+        </ul>
+    </div>
+
+    <div class="column">
+        <h2>Sinister (2)</h2>
+        <ul>
+            <li>White Wind</li>
+            <li>Progress Inner cycle</li>
+            <li>Progress Inner cycle</li>
+            <li>Tranquil End</li>
+            <li>Progress Inner cycle</li>
+        </ul>
+    </div>
+
+</div>
+
+<h1>Inner Cycles</h1>
+
+<div class="container">
+
+    <div class="column">
+        <h2>Dexter Inner Cycle</h2>
+        <ul>
+            <li>Doom</li>
+            <li>Full Break</li>
+            <li>Penta</li>
+            <li>Full Break</li>
+        </ul>
+    </div>
+
+    <div class="column">
+        <h2>Sinister Inner Cycle</h2>
+        <ul>
+            <li>Calamity</li>
+            <li>Elemental</li>
+            <li>Concussion</li>
+            <li>Elemental</li>
+        </ul>
+    </div>
+
+</div>
+
+<button onclick="nextCycle()">Next Cycle</button>
+
+<script>
+    const columns = document.querySelectorAll(".column");
+    const indexes = [];
+
+    columns.forEach(() => indexes.push(0));
+
+    function updateHighlights() {
+        columns.forEach((column, colIndex) => {
+            const items = column.querySelectorAll("li");
+            items.forEach((item, i) => {
+                item.classList.toggle("active", i === indexes[colIndex]);
+            });
+        });
+    }
+
+    function nextCycle() {
+        columns.forEach((column, colIndex) => {
+            const items = column.querySelectorAll("li");
+            indexes[colIndex] = (indexes[colIndex] + 1) % items.length;
+        });
+        updateHighlights();
+    }
+
+    columns.forEach((column, colIndex) => {
+        const items = column.querySelectorAll("li");
+        items.forEach((item, i) => {
+            item.addEventListener("click", () => {
+                indexes[colIndex] = i;
+                updateHighlights();
+            });
+        });
+    });
+
+    updateHighlights();
+</script>
+
+</body>
+</html>
