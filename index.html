@@ -1,5 +1,7 @@
 <script>
 
+const cycles = {}
+
 function createCycle(column){
 
     const items = column.querySelectorAll("li")
@@ -14,6 +16,7 @@ function createCycle(column){
     }
 
     function next(){
+
         const previousAbility = items[index].textContent
 
         index = (index+1)%items.length
@@ -28,11 +31,11 @@ function createCycle(column){
         const previousAbility = next()
 
         if(column.id==="dexter" && previousAbility==="Progress Inner cycle"){
-            dexterInner.next()
+            cycles.dexterInner.next()
         }
 
         if(column.id==="sinister" && previousAbility==="Progress Inner cycle"){
-            sinisterInner.next()
+            cycles.sinisterInner.next()
         }
 
     })
@@ -49,16 +52,8 @@ function createCycle(column){
     return {next}
 }
 
-const dexterInner = createCycle(document.getElementById("dexterInner"))
-const sinisterInner = createCycle(document.getElementById("sinisterInner"))
-
-createCycle(document.getElementById("dexter"))
-createCycle(document.getElementById("sinister"))
-
-document.querySelectorAll(".column").forEach(col=>{
-    if(!col.id){
-        createCycle(col)
-    }
+document.querySelectorAll(".column").forEach(column=>{
+    cycles[column.id || Math.random()] = createCycle(column)
 })
 
 </script>
